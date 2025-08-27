@@ -15,6 +15,7 @@ def transform_data(df):
         df = df.rename(columns={
             'SALES_AMOUNT': 'AMOUNT_SOLD'
         })
+        df['SALE_DATE'] = pd.to_datetime(df['SALE_DATE']).dt.date
         return df
     except Exception as e:
         print(f"Error transforming data: {e}")
