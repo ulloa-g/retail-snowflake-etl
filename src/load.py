@@ -1,4 +1,5 @@
 import pandas as pd
+from dotenv import load_dotenv
 import os
 
 import snowflake.connector
@@ -19,13 +20,16 @@ def load_data(df):
     """
     try:
         # Establish Snowflake connection
+        #df.reset_index(drop=True, inplace=True)
+        dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
+        load_dotenv(dotenv_path)
         conn = snowflake.connector.connect(
             user=os.getenv('SF_USER'),
             password=os.getenv('SF_PASSWORD'),
             account=os.getenv('SF_ACCOUNT'),
             warehouse=os.getenv('SF_WAREHOUSE'),
-            database='RETAIL_DW',
-            schema='RAW'
+            database=os.getenv('SF_DATABASE'),
+            schema=os.getenv('SF_SCHEMA')
         )
         
         # Load data into Snowflake
@@ -33,8 +37,8 @@ def load_data(df):
             conn=conn,
             df=df,
             table_name='FACT_SALES',
-            database='RETAIL_DW',
-            schema='RAW'
+            database=os.getenv('SF_DATABASE'),
+            schema=os.getenv('SF_SCHEMA')
         )
         conn.close()
         
@@ -53,7 +57,7 @@ if __name__ == "__main__":
     #raw_df = extract_data(file_path)
     #cleaned_df = transform_data(raw_df)
     data = {
-    "SALE_ID": [1, 2, 3],
+    "SALE_ID": [10, 20, 30],
     "DATE_ID": ["2025-08-01", "2025-08-02", "2025-08-03"],
     "PRODUCT_ID": [101, 102, 103],
     "REGION_ID": [1, 2, 3],
@@ -65,4 +69,6 @@ if __name__ == "__main__":
     "SALES_CHANNEL": ["ONLINE", "STORE", "ONLINE"]
     }
     df_test = pd.DataFrame(data)
+    df_test.columns = df_test.columns.str.upper()
+    df_test["DATE_ID"] = df_test['DATE_ID'] = pd.to_datetime(df_test['DATE_ID']).dt.date
     load_data(df_test)
