@@ -9,8 +9,14 @@ Dentro de nuestra carpeta de proyecto vamos a crear un nuevo `SQL Worksheet`.
 Pegar el contenido del archivo `sql/01_init_objects.sql`. Aquí podemos renombrar los worksheets y luego ejecutamos todas las sentencias SQL. Abajo en "status" vemos que se ejecutó sin problemas.
 ![](img/02_run_init_objects_sql.png)
 
-Repetimos el proceso para los archivos `sql/02_create_dim_tables.sql` y `sql/03_create_fact_table.sql`.
+Repetimos el proceso para los archivos `sql/02_create_dim_tables.sql` , `sql/03_create_fact_table.sql` y `sql/04_create_raw_sales_table.sql`
 ![](img/03_create_tables.png)
 
 Si ingresamos desde el panel a **Databases** podemos observar nuestro trabajo hasta ahora.
 ![](img/04_results.png)
+
+Ahora procedemos a realizar la carga de datos crudos almacenados en el archivo **input_data/sales_data.cvs**. Para esto procedemos a realizar un *proceso ETL con python*.
+Debemos correr el script: ```python3 load.py ``` desde el directorio **src/**. Los datos crudos se almacenarán en el esquema **"STG"** en la tabla **"RAW_SALES"** dentro de *Snowflake*.
+
+Podemos ver los resultados:
+![](img/05_raw_sales_results.png)
