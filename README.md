@@ -20,3 +20,12 @@ Debemos correr el script: ```python3 load.py ``` desde el directorio **src/**. L
 
 Podemos ver los resultados:
 ![](img/05_raw_sales_results.png)
+
+Con los datos crudos ya cargados, vamos a proceder a poblar las tablas de dimensiones creadas en pasos previos. Deberás dirigirte a nuestra carpeta de proyecto que llamamos **first_sf_etl** y pegar el contenido del archivo `sql/05_populate_dim_tables.sql`.
+
+Luego ejecutar la sentencia SQL.
+![](img/06_populate_dim_region.png)
+
+Podemos ver los resultados, por ejemplo para la tabla *DIM_REGION*.
+![](img/07_results_dim_region.png)
+
