@@ -2,9 +2,10 @@ USE DATABASE RETAIL_DW;
 USE SCHEMA RAW;
 
 CREATE OR REPLACE TABLE DIM_PRODUCT (
-    product_id INT AUTOINCREMENT PRIMARY KEY,
-    product_name VARCHAR(255) NOT NULL,
-    category VARCHAR(100)
+    product_id INT PRIMARY KEY,
+    product_category VARCHAR(255) NOT NULL,
+    unit_cost FLOAT,
+    unit_price FLOAT
 );
 
 CREATE OR REPLACE TABLE DIM_SALES_REP (
